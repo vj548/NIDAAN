@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Base Reset & Typography ===== */
+:root {
+  --scale: 1;
+  --font-size-base: 15px;
+}
+:root.scale-sm { --scale: 0.93; }
+:root.scale-lg { --scale: 1.12; }
+
+html {
+  font-size: calc(var(--font-size-base) * var(--scale));
+  font-family: 'Mukta', sans-serif;
+  color: #1A2233;
+  background: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+/* ===== Tricolour Strip ===== */
+.tricolour-strip {
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #FF9933 0% 33.33%,
+    #ffffff 33.33% 66.66%,
+    #138808 66.66% 100%
+  );
+}
+
+/* ===== Status Chips ===== */
+.chip {
+  @apply inline-flex items-center gap-1 px-2 py-0.5 font-mono text-chip font-medium uppercase border;
+  border-radius: 2px;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+.chip-received       { @apply bg-white text-muted border-muted border-dashed; }
+.chip-triage         { @apply bg-white text-muted border-muted border-dashed; }
+.chip-under-review   { @apply bg-panel-header text-navy border-navy border-solid; }
+.chip-cross-bureau   { @apply bg-panel-header text-navy border-navy border-solid; }
+.chip-action-req     { @apply bg-amber-50 text-status-amber border-status-amber border-solid; }
+.chip-sla-risk       { @apply bg-amber-50 text-status-amber border-status-amber border-solid; }
+.chip-sla-breached   { @apply bg-red-50 text-status-red border-status-red border-solid; }
+.chip-resolved       { @apply bg-green-50 text-status-green border-status-green border-solid; }
+.chip-closed         { @apply bg-green-50 text-status-green border-status-green border-solid; }
+.chip-on-hold        { 
+  @apply bg-white text-status-slate border-status-slate border-solid;
+  background-image: repeating-linear-gradient(
+    45deg, transparent, transparent 3px, rgba(59,70,89,0.12) 3px, rgba(59,70,89,0.12) 4px
+  );
+}
+.chip-reopened       { @apply bg-orange-50 text-saffron border-saffron border-solid; }
+
+/* Severity chips */
+.chip-critical { @apply bg-red-600 text-white border-red-700; }
+.chip-high     { @apply bg-orange-500 text-white border-orange-600; }
+.chip-medium   { @apply bg-amber-400 text-ink border-amber-500; }
+.chip-low      { @apply bg-slate-200 text-muted border-slate-300; }
+
+/* Match chips */
+.chip-exact    { @apply bg-green-100 text-status-green border-status-green; }
+.chip-strong   { @apply bg-blue-100 text-navy border-navy; }
+.chip-possible { @apply bg-amber-100 text-status-amber border-status-amber; }
+.chip-below    { @apply bg-white text-muted border-muted border-dashed; }
+
+/* Audit chain chips */
+.chip-chain-intact  { @apply bg-green-50 text-status-green border-status-green; }
+.chip-chain-broken  { @apply bg-red-50 text-status-red border-status-red; }
+
+/* ===== Panels ===== */
+.panel {
+  @apply border border-border bg-white;
+  border-radius: 2px;
+}
+.panel-header {
+  @apply bg-panel-header border-b border-border px-4 py-2.5;
+}
+.panel-header h2 {
+  @apply text-h2 font-bold text-navy;
+}
+
+/* ===== Tables ===== */
+.data-table {
+  @apply w-full border-collapse text-table;
+}
+.data-table th {
+  @apply bg-navy text-white font-semibold text-left px-3 py-2.5 text-table whitespace-nowrap;
+}
+.data-table td {
+  @apply px-3 py-2 border-b border-border text-ink;
+}
+.data-table tbody tr:hover {
+  @apply bg-tint;
+}
+.data-table tbody tr:last-child td {
+  @apply border-b-0;
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+  @apply inline-flex items-center gap-2 bg-navy text-white font-semibold px-4 py-2 text-body border-2 border-navy transition-colors;
+  border-radius: 2px;
+  min-height: 44px;
+}
+.btn-primary:hover { @apply bg-deep-navy border-deep-navy; }
+.btn-primary:disabled { @apply opacity-50 cursor-not-allowed; }
+
+.btn-secondary {
+  @apply inline-flex items-center gap-2 bg-white text-navy font-semibold px-4 py-2 text-body border-2 border-navy transition-colors;
+  border-radius: 2px;
+  min-height: 44px;
+}
+.btn-secondary:hover { @apply bg-tint; }
+.btn-secondary:disabled { @apply opacity-50 cursor-not-allowed; }
+
+.btn-danger {
+  @apply inline-flex items-center gap-2 bg-red-700 text-white font-semibold px-4 py-2 text-body border-2 border-red-700 transition-colors;
+  border-radius: 2px;
+  min-height: 44px;
+}
+.btn-danger:hover { @apply bg-red-800 border-red-800; }
+
+/* ===== Form Controls ===== */
+.form-label {
+  @apply block text-body font-semibold text-ink mb-1;
+}
+.form-input {
+  @apply w-full border border-muted px-3 py-2 text-body text-ink bg-white focus:outline-none focus:border-navy;
+  border-radius: 2px;
+  min-height: 44px;
+}
+.form-input:focus { box-shadow: 0 0 0 2px rgba(18,48,107,0.2); }
+.form-select {
+  @apply w-full border border-muted px-3 py-2 text-body text-ink bg-white focus:outline-none focus:border-navy;
+  border-radius: 2px;
+  min-height: 44px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%233B4659' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+.form-textarea {
+  @apply w-full border border-muted px-3 py-2 text-body text-ink bg-white focus:outline-none focus:border-navy resize-y;
+  border-radius: 2px;
+  min-height: 88px;
+}
+.form-textarea:focus { box-shadow: 0 0 0 2px rgba(18,48,107,0.2); }
+
+/* ===== Alert Boxes ===== */
+.alert-error {
+  @apply border-l-4 border-red-600 bg-red-50 px-4 py-3 text-body text-red-800 flex items-start gap-3;
+}
+.alert-success {
+  @apply border-l-4 border-status-green bg-green-50 px-4 py-3 text-body text-status-green flex items-start gap-3;
+}
+.alert-info {
+  @apply border-l-4 border-navy bg-panel-header px-4 py-3 text-body text-navy flex items-start gap-3;
+}
+.alert-warning {
+  @apply border-l-4 border-status-amber bg-amber-50 px-4 py-3 text-body text-status-amber flex items-start gap-3;
+}
+
+/* ===== Nav Active State ===== */
+.nav-item {
+  @apply px-4 py-3 text-white font-semibold text-body relative transition-colors cursor-pointer whitespace-nowrap;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.nav-item:hover { @apply bg-deep-navy; }
+.nav-item.active {
+  @apply bg-deep-navy;
+}
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #FF9933;
+}
+
+/* ===== Breadcrumb ===== */
+.breadcrumb {
+  @apply bg-tint border-b border-border px-8 py-2 text-body text-muted;
+}
+.breadcrumb a { @apply text-navy underline; }
+
+/* ===== SYNTH tag ===== */
+.synth-tag {
+  @apply inline-block font-mono text-chip bg-amber-100 text-amber-800 border border-amber-300 px-1.5 py-px;
+  border-radius: 2px;
+}
+
+/* ===== Page H1 ===== */
+.page-h1 {
+  @apply text-h1 font-bold text-navy pb-2 mb-4;
+  border-bottom: 2px solid #12306B;
+}
+
+/* ===== Dashboard Tiles ===== */
+.dash-tile {
+  @apply panel p-4 cursor-pointer transition-all border-2;
+}
+.dash-tile:hover { border-color: #FF9933; box-shadow: 0 2px 8px rgba(18,48,107,0.12); }
+.dash-tile.active { border-color: #FF9933; box-shadow: inset 0 0 0 2px #FF9933; }
+
+/* ===== Scrollable table container ===== */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== Keyboard focus ===== */
+:focus-visible {
+  outline: 3px solid #FF9933;
+  outline-offset: 2px;
+}
+
+/* ===== Skip link ===== */
+.skip-link {
+  @apply absolute -top-full left-4 z-50 bg-navy text-white px-4 py-2 font-semibold;
+  border-radius: 2px;
+}
+.skip-link:focus { @apply top-2; }
+
+/* ===== Footer ===== */
+.site-footer {
+  @apply bg-deep-navy text-white py-6 mt-auto;
+}
+.site-footer a { @apply text-blue-300 underline; }
+
+/* ===== Divider ===== */
+.section-divider { @apply border-t border-border my-6; }
+
+/* ===== Notification badge ===== */
+.notif-badge {
+  @apply absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-600 text-white flex items-center justify-center;
+  font-size: 9px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* ===== Timeline ===== */
+.timeline-item {
+  @apply relative pl-8 pb-6;
+}
+.timeline-item::before {
+  content: '';
+  @apply absolute left-3 top-6 bottom-0 w-px bg-border;
+}
+.timeline-item:last-child::before { display: none; }
+.timeline-dot {
+  @apply absolute left-0 top-1 w-6 h-6 rounded-full border-2 border-navy bg-white flex items-center justify-center;
+}
+
+/* ===== Graph node ===== */
+.react-flow__node-complaint {
+  @apply panel border-2 border-navy text-mono text-xs px-3 py-2;
+}
